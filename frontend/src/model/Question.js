@@ -35,7 +35,7 @@ class Question extends EventEmitter {
     }
 
     loadQuestions() {
-        return getClient().loadAllQuestions().then(questions => {
+        return getClient().getQuestionClient().loadAllQuestions().then(questions => {
             this.state = {
                 ...this.state,
                 questions: questions,
@@ -45,7 +45,7 @@ class Question extends EventEmitter {
     }
 
     loadTags() {
-        return getClient().loadAllTags().then(allTagsTemp => {
+        return getClient().getQuestionClient().loadAllTags().then(allTagsTemp => {
             this.state = {
                 ...this.state,
                 allTagsTemp: allTagsTemp
@@ -59,14 +59,18 @@ class Question extends EventEmitter {
 
     addQuestion(authorId, title, text, tags) {
 
-        return getClient().createQuestion(authorId, title, text, tags)
-            .then(question => {
-                this.state = {
-                    ...this.state,
-                    questions: this.state.questions.concat([question])
-                };
-                this.emit("change", this.state);
-            });
+        return getClient().getQuestionClient().createQuestion(authorId, title, text, tags)
+            .then(question => this.addQuestionState(question));
+    }
+
+    addQuestionState(question) {
+
+        this.state = {
+            ...this.state,
+            questions: this.state.questions.concat([question])
+        };
+        this.emit("change", this.state);
+
     }
 
     changeNewQuestionProperty(property, value) {
@@ -80,7 +84,7 @@ class Question extends EventEmitter {
         this.emit("change", this.state);
     }
 
-    
+
     changeQuestionProperty(property, value) {
         this.state = {
             ...this.state,
@@ -92,7 +96,7 @@ class Question extends EventEmitter {
 
     filterByTitle(searchFieldTitle) {
 
-        return getClient().filterByTitle(searchFieldTitle).then(questions => {
+        return getClient().getQuestionClient().filterByTitle(searchFieldTitle).then(questions => {
             this.state = {
                 ...this.state,
                 questions: questions
@@ -103,7 +107,7 @@ class Question extends EventEmitter {
 
     filterByTags(searchFieldTag) {
 
-        return getClient().filterByTags(searchFieldTag).then(questions => {
+        return getClient().getQuestionClient().filterByTags(searchFieldTag).then(questions => {
             this.state = {
                 ...this.state,
                 questions: questions
@@ -114,7 +118,7 @@ class Question extends EventEmitter {
 
     addNewTags(newTags) {
 
-        return getClient().createTag(newTags)
+        return getClient().getQuestionClient().createTag(newTags)
             .then(tags => {
                 this.state = {
                     ...this.state,
@@ -126,9 +130,9 @@ class Question extends EventEmitter {
             });
     }
 
-    loadCurrentQuestion(questionId){
+    loadCurrentQuestion(questionId) {
 
-        return getClient().loadCurrentQuestion(questionId).then(currentQuestion => {
+        return getClient().getQuestionClient().loadCurrentQuestion(questionId).then(currentQuestion => {
             this.state = {
                 ...this.state,
                 currentQuestion: currentQuestion,
@@ -137,9 +141,9 @@ class Question extends EventEmitter {
         })
     }
 
-    voteQuestion(userId, questionId, voteText){
+    voteQuestion(userId, questionId, voteText) {
 
-        return getClient().voteQuestion(userId, questionId, voteText).then(questions => {
+        return getClient().getQuestionClient().voteQuestion(userId, questionId, voteText).then(questions => {
             this.state = {
                 ...this.state,
                 questions: questions,
@@ -148,9 +152,9 @@ class Question extends EventEmitter {
         })
     }
 
-    removeQuestion(userId, questionId){
+    removeQuestion(userId, questionId) {
 
-        return getClient().removeQuestion(userId, questionId).then(questions => {
+        return getClient().getQuestionClient().removeQuestion(userId, questionId).then(questions => {
             this.state = {
                 ...this.state,
                 questions: questions,
@@ -161,7 +165,7 @@ class Question extends EventEmitter {
 
     updateQuestion(userId, questionId, text) {
 
-        return getClient().updateQuestion(userId, questionId, text)
+        return getClient().getQuestionClient().updateQuestion(userId, questionId, text)
             .then(questions => {
 
                 this.state = {
@@ -172,6 +176,7 @@ class Question extends EventEmitter {
             });
     }
 }
+
 
 const question = new Question();
 

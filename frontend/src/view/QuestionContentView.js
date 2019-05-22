@@ -37,9 +37,9 @@ const QuestionContentView = ({ currentQuestion, currentUser, handleVoteQuestion,
             <div className="collapse" id="dropdown">
                 <button className="dropdown-item disabled">Points: {currentQuestion.userPoints}</button>
                 {(currentUser.permission === "ADMIN" && currentQuestion.userStatus === "ALLOWED") &&
-                    <button type="button" className="btn btn-danger" onClick={() => banUser(currentQuestion.authorId)}>Ban</button>}
+                    <button type="button" className="btn btn-danger" onClick={() => banUser(currentQuestion.authorId, "BANNED")}>Ban</button>}
                 {(currentUser.permission === "ADMIN" && currentQuestion.userStatus === "BANNED") &&
-                    <button type="button" className="btn btn-success" onClick={() => unbanUser(currentQuestion.authorId)}>Unban</button>}
+                    <button type="button" className="btn btn-success" onClick={() => banUser(currentQuestion.authorId, "ALLOWED")}>Unban</button>}
             </div>
 
             <div className="score-divider" />

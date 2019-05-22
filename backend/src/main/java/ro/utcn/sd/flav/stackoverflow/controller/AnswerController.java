@@ -21,21 +21,21 @@ public class AnswerController {
         return answerService.listAnswers(questionId);
     }
 
-    @PostMapping("/edit-answer")
-    public List<AnswerDTO> editAnswer(@RequestBody AnswerDTO answerDTO) {
+    @PutMapping("/answers/{answerId}")
+    public List<AnswerDTO> editAnswer(@PathVariable int answerId, @RequestBody AnswerDTO answerDTO) {
 
-        answerService.updateAnswer(answerDTO.getAuthorId(), answerDTO.getAnswerId(), answerDTO.getText());
+        answerService.updateAnswer(answerDTO.getAuthorId(), answerId, answerDTO.getText());
         return answerService.listAnswers(answerDTO.getQuestionId());
     }
 
-    @PostMapping("/remove-answer")
-    public List<AnswerDTO> removeAnswer(@RequestBody AnswerDTO answerDTO) {
+    @DeleteMapping("/delete/{answerId}")
+    public List<AnswerDTO> removeAnswer(@PathVariable int answerId, @RequestBody AnswerDTO answerDTO) {
 
-        answerService.removeAnswer(answerDTO.getAuthorId(), answerDTO.getAnswerId());
+        answerService.removeAnswer(answerDTO.getAuthorId(), answerId);
         return answerService.listAnswers(answerDTO.getQuestionId());
     }
 
-    @PostMapping("/create-answer")
+    @PostMapping("/answer")
     public AnswerDTO addAnswer(@RequestBody AnswerDTO answerDTO) {
 
         return answerService.addAnswer(answerDTO.getAuthorId(), answerDTO.getQuestionId(), answerDTO.getText());
@@ -44,16 +44,10 @@ public class AnswerController {
     @PostMapping("/vote-answer")
     public List<AnswerDTO> voteQuestion(@RequestBody VoteAnswerDTO voteAnswerDTO) {
 
-
         Integer userId = voteAnswerDTO.getUserGivesAnswerId();
         Integer answerId = voteAnswerDTO.getAnswerVotedId();
         Integer questionId = voteAnswerDTO.getQuestionId();
         String voteText = voteAnswerDTO.getVoteText();
-
-        System.out.println(userId);
-        System.out.println(answerId);
-        System.out.println(questionId);
-        System.out.println(voteText);
 
         boolean isVoted = answerService.handleVote(userId,answerId,voteText);
         if(!isVoted) {

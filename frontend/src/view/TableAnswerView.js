@@ -44,9 +44,9 @@ const TableAnswerView = ({ answersCopy, currentUser, currentQuestion, onDelete, 
                             <div className="collapse" id="dropdown">
                                 <button className="dropdown-item disabled">Points: {answer.userPoints}</button>
                                 {(currentUser.permission === "ADMIN" && answer.userStatus === "ALLOWED") &&
-                                    <button type="button" className="btn btn-danger" onClick={() => banUser(answer.authorId)} >Ban</button>}
+                                    <button type="button" className="btn btn-danger" onClick={() => banUser(answer.authorId, "BANNED")} >Ban</button>}
                                 {(currentUser.permission === "ADMIN" && answer.userStatus === "BANNED") &&
-                                    <button type="button" className="btn btn-success" onClick={() => unbanUser(answer.authorId)}>Unban</button>}
+                                    <button type="button" className="btn btn-success" onClick={() => unbanUser(answer.authorId, "ALLOWED")}>Unban</button>}
                             </div>
 
                             <div className="score-divider" />

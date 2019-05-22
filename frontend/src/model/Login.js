@@ -1,14 +1,17 @@
 import { EventEmitter } from "events";
 import RestClient from "../rest/RestClient";
-//import WebSocketListener from "../ws/WebSocketListener";
+import WebSocketListener from "../ws/WebSocketListener";
+import answer from "./Answer";
 
 let client = new RestClient();
-//const listener = new WebSocketListener("flavius1", "parola1");
+let listener = new WebSocketListener();
+listener.client.deactivate();
 
-export function getClient(){
+export function getClient() {
 
     return client;
 }
+
 
 class Login extends EventEmitter {
     constructor() {
@@ -37,7 +40,7 @@ class Login extends EventEmitter {
     }
 
     loadUsers() {
-        return client.loadAllUSers().then(users => {
+        return client.getLoginClient().loadAllUsers().then(users => {
             this.state = {
                 ...this.state,
                 users: users
@@ -49,7 +52,7 @@ class Login extends EventEmitter {
 
     addUser(username, password) {
 
-        return client.registerUser(username, password)
+        return client.getLoginClient().registerUser(username, password)
             .then(user => {
                 this.state = {
                     ...this.state,
@@ -69,7 +72,7 @@ class Login extends EventEmitter {
         };
         this.emit("change", this.state);
     }
-    
+
     changeLoginProperty(property, value) {
         this.state = {
             ...this.state,
@@ -82,39 +85,50 @@ class Login extends EventEmitter {
     logUser(username, password) {
 
         client = new RestClient(username, password);
-        return client.loginUser(username, password).then(user => {
+       
+        listener = new WebSocketListener(username, password);
+        this.onEvent(listener);
+        return client.getLoginClient().loginUser(username, password).then(user => {
             this.state = {
                 ...this.state,
                 currentUser: user
             };
-           
+
             this.emit("change", this.state);
         })
     }
 
-    getCurrentUser(){
+    getCurrentUser() {
 
-        return client.readCurrentUser().then(user => {
+        return client.getLoginClient().readCurrentUser().then(user => {
             this.state = {
                 ...this.state,
                 currentUser: user
             };
-           
+
             this.emit("change", this.state);
-        }) 
+        })
     }
 
-    banUser(userId) {
+    banUser(userId, userStatus) {
 
-        return client.banUser(userId);
+        return client.getLoginClient().banUser(userId, userStatus);
     }
 
-    unbanUser(userId) {
+    onEvent(listener){
 
-        return client.unbanUser(userId);
+        listener.on("event", event => {
+            console.log("facem ceva?");
+            if (event.type === "ANSWER_CREATED") {
+                console.log("ajunge aici");
+                answer.addAnswerState(event.answerDTO);
+            }
+        });
+
     }
 }
 
 const login = new Login();
+
 
 export default login;

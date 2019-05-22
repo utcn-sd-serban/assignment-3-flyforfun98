@@ -30,27 +30,23 @@ public class QuestionController {
         return questionService.listQuestions();
     }
 
-    @PostMapping("/create-question")
+    @PostMapping("/question")
     public QuestionDTO addQuestion(@RequestBody QuestionDTO questionDTO) {
 
         return questionService.addQuestion(questionDTO.getAuthorId(), questionDTO.getTitle(), questionDTO.getText(),questionDTO.getTags());
     }
 
-    @PostMapping("/remove-question")
-    public List<QuestionDTO> removeQuestion(@RequestBody QuestionDTO questionDTO) {
+    @DeleteMapping("/questions/{questionId}")
+    public List<QuestionDTO> removeQuestion(@PathVariable int questionId, @RequestBody QuestionDTO questionDTO) {
 
-        questionService.removeQuestion(questionDTO.getAuthorId(), questionDTO.getQuestionId());
-        for (QuestionDTO question: questionService.listQuestions()) {
-            System.out.println(question);
-
-        }
+        questionService.removeQuestion(questionDTO.getAuthorId(), questionId);
         return questionService.listQuestions();
     }
 
-    @PostMapping("/edit-question")
-    public List<QuestionDTO> editQuestion(@RequestBody QuestionDTO questionDTO) {
+    @PutMapping("/questions/{questionId}")
+    public List<QuestionDTO> editQuestion(@PathVariable int questionId, @RequestBody QuestionDTO questionDTO) {
 
-        questionService.updateQuestion(questionDTO.getQuestionId(), questionDTO.getText(),questionDTO.getAuthorId());
+        questionService.updateQuestion(questionId, questionDTO.getText(),questionDTO.getAuthorId());
         return questionService.listQuestions();
     }
 

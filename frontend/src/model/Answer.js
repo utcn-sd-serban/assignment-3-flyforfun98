@@ -40,20 +40,23 @@ class Answer extends EventEmitter {
     }
 
     addAnswer(authorId, questionId, text) {
+      
+        return getClient().getAnswerClient().createAnswer(authorId, questionId, text)
+            .then(answer => this.addAnswerState(answer));
+    }
 
-        return getClient().createAnswer(authorId, questionId, text)
-            .then(answer => {
-                this.state = {
-                    ...this.state,
-                    answers: this.state.answers.concat([answer])
-                };
-                this.emit("change", this.state);
-            });
+    addAnswerState(answer) {
+
+        this.state = {
+            ...this.state,
+            answers: this.state.answers.concat([answer])
+        };
+        this.emit("change", this.state);
     }
 
     updateAnswer(authorId, answerId, questionId, text) {
 
-        return getClient().updateAnswer(authorId, answerId, questionId, text)
+        return getClient().getAnswerClient().updateAnswer(authorId, answerId, questionId, text)
             .then(answers => {
 
                 this.state = {
@@ -66,7 +69,7 @@ class Answer extends EventEmitter {
 
     removeAnswer(authorId, answerId, questionId) {
 
-        return getClient().removeAnswer(authorId, answerId, questionId)
+        return getClient().getAnswerClient().removeAnswer(authorId, answerId, questionId)
             .then(answers => {
 
                 this.state = {
@@ -79,7 +82,7 @@ class Answer extends EventEmitter {
 
     loadAnswers(questionId) {
 
-        return getClient().loadAllAnswers(questionId).then(answers => {
+        return getClient().getAnswerClient().loadAllAnswers(questionId).then(answers => {
             this.state = {
                 ...this.state,
                 answers: answers,
@@ -90,7 +93,7 @@ class Answer extends EventEmitter {
 
     loadCurrentQuestion(questionId) {
 
-        return getClient().loadCurrentQuestion(questionId).then(currentQuestion => {
+        return getClient().getQuestionClient().loadCurrentQuestion(questionId).then(currentQuestion => {
             this.state = {
                 ...this.state,
                 currentQuestion: currentQuestion,
@@ -101,7 +104,7 @@ class Answer extends EventEmitter {
 
     getCurrentUser() {
 
-        return getClient().readCurrentUser().then(user => {
+        return getClient().getLoginClient().readCurrentUser().then(user => {
             this.state = {
                 ...this.state,
                 currentUser: user
@@ -142,9 +145,9 @@ class Answer extends EventEmitter {
         this.emit("change", this.state);
     }
 
-    voteAnswer(userId, answerId, questionId, voteText){
+    voteAnswer(userId, answerId, questionId, voteText) {
 
-        return getClient().voteAnswer(userId, answerId, questionId, voteText).then(answers => {
+        return getClient().getAnswerClient().voteAnswer(userId, answerId, questionId, voteText).then(answers => {
             this.state = {
                 ...this.state,
                 answers: answers,
@@ -153,7 +156,7 @@ class Answer extends EventEmitter {
         })
     }
 
-
+    
 }
 
 const answer = new Answer();

@@ -1,9 +1,12 @@
 import model from "../model/Login";
+import invoker from "../command/Invoker";
+import { LoadUsersCommand, AddUserCommand, LogUserCommand } from "../command/LoginCommands";
+
 class LoginPresenter {
 
     onInit() {
 
-        model.loadUsers();
+        invoker.invoke(new LoadUsersCommand());
     }
 
     onCreate() {
@@ -11,12 +14,13 @@ class LoginPresenter {
         var username = model.state.newUser.username;
         var password = model.state.newUser.password;
 
-        model.addUser(username, password).then(() => {
+        invoker.invoke(new AddUserCommand(username, password)).then(() => {
 
             model.changeNewUserProperty("username", "");
             model.changeNewUserProperty("password", "");
             window.location.assign("#/");
         });
+       
     }
 
     onLogging() {
@@ -24,7 +28,7 @@ class LoginPresenter {
         var username = model.state.newUser.username;
         var password = model.state.newUser.password;
 
-        model.logUser(username, password).then(() => {
+        invoker.invoke(new LogUserCommand(username, password)).then(() => {
 
             model.changeNewUserProperty("username", "");
             model.changeNewUserProperty("password", "");

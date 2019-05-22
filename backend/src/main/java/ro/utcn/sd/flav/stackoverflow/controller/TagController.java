@@ -21,7 +21,7 @@ public class TagController {
         return tagService.listTags();
     }
 
-    @PostMapping("/add-tags")
+    @PostMapping("/tag")
     public List<TagDTO> addTags(@RequestBody String tags) {
 
         int tagsLength = tags.length() - 2;

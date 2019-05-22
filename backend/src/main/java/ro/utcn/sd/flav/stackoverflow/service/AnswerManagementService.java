@@ -1,6 +1,7 @@
 package ro.utcn.sd.flav.stackoverflow.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.utcn.sd.flav.stackoverflow.dto.AnswerDTO;
@@ -8,6 +9,7 @@ import ro.utcn.sd.flav.stackoverflow.entity.Answer;
 import ro.utcn.sd.flav.stackoverflow.entity.ApplicationUser;
 import ro.utcn.sd.flav.stackoverflow.entity.UserPermission;
 import ro.utcn.sd.flav.stackoverflow.entity.VoteAnswer;
+import ro.utcn.sd.flav.stackoverflow.event.AnswerCreatedEvent;
 import ro.utcn.sd.flav.stackoverflow.exception.AccountNotFoundException;
 import ro.utcn.sd.flav.stackoverflow.exception.AnswerNotFoundException;
 import ro.utcn.sd.flav.stackoverflow.exception.AnswerRemovalException;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class AnswerManagementService {
 
     private final RepositoryFactory repositoryFactory;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public AnswerDTO addAnswer(Integer authorId, Integer questionId, String text)
@@ -37,6 +40,8 @@ public class AnswerManagementService {
         answerDTO.setUsername(user.getUsername());
         answerDTO.setUserPoints(user.getPoints());
         answerDTO.setUserStatus(user.getStatus().name());
+
+        eventPublisher.publishEvent(new AnswerCreatedEvent(answerDTO));
 
         return answerDTO;
     }

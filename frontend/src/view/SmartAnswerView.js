@@ -3,6 +3,8 @@ import model from "../model/Answer";
 import MainAnswerView from "./MainAnswerView";
 import answerPresenter from "../presenter/AnswerPresenter";
 import questionModel from "../model/Question";
+import invoker from "../command/Invoker";
+import { LoadCurrentQuestionCommand, GetCurrentUserCommand } from "../command/AnswerCommands";
 
 const mapAnswerModelStateToComponentState = (answerState, props) => (
     
@@ -38,9 +40,9 @@ export default class SmartAnswerView extends Component {
 
     componentDidMount() {
        
-        model.loadCurrentQuestion(questionModel.state.currentQuestion.questionId);
-        model.getCurrentUser();
-        //model.sortAnswersByVotes();    
+        invoker.invoke(new LoadCurrentQuestionCommand(questionModel.state.currentQuestion.questionId));
+        invoker.invoke(new GetCurrentUserCommand());
+ 
     } 
 
     componentWillUnmount() {
