@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "bc2494ff-40d8-4306-85f7-f24cdfc2bac2",
+		"name": "Postman Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/questions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "835baba5-d6e7-4666-be86-f1221cda4efa",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There are at least 5 questions\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions.length).to.be.above(5);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/javascript",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a1f1363-e716-4f7b-9bf8-3c85f638964f",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The question title shall be Strings25\", function () {",
+							"   var question = pm.response.json();",
+							"   pm.expect(question.title).to.be.equal(\"Strings25\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"questionId\": 145,\n        \"authorId\": 34,\n        \"title\": \"Strings25\",\n        \"text\": \"Why to use Strings?25\",\n        \"creationDate\": \"2000-11-01\",\n        \"score\": 0,\n        \"tags\": [\n            \"sort\",\n            \"dependency-injection\"\n        ]\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/questions/145/answers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24e26760-8668-4885-94ba-70b2acb261b8",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There are exactly 3 answers\", function () {",
+							"   var answers = pm.response.json();",
+							"   pm.expect(answers.length).to.be.equal(3);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/javascript",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"34\",\n    \"questionId\": \"105\",\n    \"voteText\": \"UP\"\n        \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/questions/145/answers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"145",
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/list-users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb19c47a-8d4f-4a9a-a65a-8daea1b1a2e0",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The first user's name is flyforfun98\", function () {",
+							"   var users = pm.response.json();",
+							"   pm.expect(users[0].username).to.be.equal(\"flyforfun98\");",
+							"});",
+							"",
+							"pm.test(\"There are 10 users\", function () {",
+							"   var users = pm.response.json();",
+							"   pm.expect(users.length).to.be.equal(10);",
+							"});",
+							"",
+							"pm.test(\"Users 2 and 3 are banned users\", function () {",
+							"   var users = pm.response.json();",
+							"   pm.expect(users[1].status).to.be.equal(\"BANNED\");",
+							"    pm.expect(users[2].status).to.be.equal(\"BANNED\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/javascript",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/list-users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"list-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/43",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06f08da9-6064-44d9-a47e-97bbed881024",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"userId\": 43,\n        \"username\": \"user1\",\n        \"password\": \"$2a$10$3Q8ApU/eSLZ7tc1jD9DIgOKy8C.r534agAxL7/Nb422srIk90Y3Ai\",\n        \"permission\": \"USER\",\n        \"status\": \"ALLOWED\",\n        \"points\": 0\n \t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/43",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"43"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/questions/140",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d97c59b-58d1-441a-abfc-ba0e615fc831",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The text of the 5th question shall be edited\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions[4].text).to.be.equal(\"The new text for question\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"questionId\": 140,\n        \"authorId\": 34,\n        \"title\": \"Strings25\",\n        \"text\": \"The new text for question\",\n        \"creationDate\": \"2000-11-01\",\n        \"score\": 0,\n        \"tags\": [\n            \"sort\",\n            \"dependency-injection\"\n        ]\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/questions/140",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"140"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/questions/151",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b59436fb-b2de-4517-8084-79ed3ecddb4b",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The new length of the questions shall be 8\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions.length).to.be.equal(8);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"questionId\": 147,\n        \"authorId\": 34,\n        \"title\": \"web socket question\",\n        \"text\": \"dadadadada\",\n        \"creationDate\": \"2019-05-21\",\n        \"score\": 0,\n        \"tags\": [\n            \"sort\",\n            \"dependency-injection\"\n        ]\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/questions/147",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"147"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/filter-by-title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de5b19e8-f679-47be-a897-6475c812a881",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The length of the filtered questions shall be 2\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions.length).to.be.equal(2);",
+							"});",
+							"",
+							"pm.test(\"The id of the 2nd question shall be 145\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions[1].questionId).to.be.equal(145);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"new\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/filter-by-title",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filter-by-title"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/filter-by-tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ce0ce28-8db6-4daf-8a0d-5ac823e75408",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The length of the flitered questions shall be 3\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions.length).to.be.equal(3);",
+							"});",
+							"",
+							"pm.test(\"The title of the first questions shall be Arrays\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions[0].title).to.be.equal(\"Arrays\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"tags\":\"sort \"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/filter-by-tag",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filter-by-tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/vote-question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3f3d7a9-1b14-49cc-afc3-d42f9ce44ed9",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The score of the question shall be 1\", function () {",
+							"   var questions = pm.response.json();",
+							"   pm.expect(questions[4].votes).to.be.equal(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userGivesId\": 34,\n    \"questionVotedId\": 105,\n    \"voteText\": \"UP\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/vote-question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vote-question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/answers/102",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c8b6807-06be-417a-a571-0973ba172ad1",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There should be 4 answers\", function () {",
+							"   var answers = pm.response.json();",
+							"   pm.expect(answers.length).to.be.equal(4);",
+							"});",
+							"",
+							"pm.test(\"The text of the 4th answer shall be edited\", function () {",
+							"   var answers = pm.response.json();",
+							"   pm.expect(answers[3].text).to.be.equal(\"The new text for answer\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"answerId\": 102,\n        \"authorId\": 38,\n        \"questionId\": 146,\n        \"text\": \"The new text for answer\",\n        \"username\": \"flyforfun98\",\n        \"userStatus\": \"ALLOWED\",\n        \"date\": \"2019-05-20\",\n        \"votes\": -1,\n        \"userPoints\": 27\n    }\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/answers/102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answers",
+						"102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c40fa411-2f0a-4289-9d57-f2aa164ce38b",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"The text of the 4th answer shall be edited\", function () {",
+							"   var answer = pm.response.json();",
+							"   pm.expect(answer.text).to.be.equal(\"some answer text\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"answerId\": 103,\n        \"authorId\": 34,\n        \"questionId\": 146,\n        \"text\": \"some answer text\",\n        \"username\": \"flyforfun98\",\n        \"userStatus\": \"ALLOWED\",\n        \"date\": \"2019-05-20\",\n        \"votes\": 0,\n        \"userPoints\": 27\n    }\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/answer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/vote-answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01346828-e8f0-4771-a4e0-784c0e06567b",
+						"exec": [
+							"pm.test(\"Response status is OK\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There should be 5 answers\", function () {",
+							"   var answers = pm.response.json();",
+							"   pm.expect(answers.length).to.be.equal(5);",
+							"});",
+							"",
+							"pm.test(\"The score for the answer shall be -1\", function () {",
+							"   var answers = pm.response.json();",
+							"   pm.expect(answers[4].votes).to.be.equal(-1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "flavius1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "flyforfun98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userGivesAnswerId\": 35,\n    \"answerVotedId\": 103,\n    \"questionId\": 146,\n    \"voteText\": \"DOWN\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/vote-answer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vote-answer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

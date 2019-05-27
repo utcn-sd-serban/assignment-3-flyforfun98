@@ -13,14 +13,14 @@ const CreateQuestionView = ({ onCreate, onChange, title, text, tags, allTags }) 
                     <br />
                     <form>
                         <input className="input" value={title}
-                            onChange={e => onChange("title", e.target.value)} />
+                            onChange={e => onChange("title", e.target.value)} data-cy="questionTitle"/>
                     </form>
                     <br />
                     <br />
                     <label>Tags: </label>
                     <br />
                     <input className="input-tags" value={tags}
-                        onChange={e => onChange("tags", e.target.value)} />
+                        onChange={e => onChange("tags", e.target.value)} data-cy="questionTags"/>
                     <div className="divider" />
                     <button className="dropdown-toggle badge badge-pill badge-warning dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Tags</button>
@@ -40,13 +40,13 @@ const CreateQuestionView = ({ onCreate, onChange, title, text, tags, allTags }) 
                     <div className="form-group green-border-focus">
                         <label form="exampleFormControlTextarea5">Text</label>
                         <textarea className="form-control" id="exampleFormControlTextarea5" rows="7"
-                            value={text} onChange={e => onChange("text", e.target.value)}></textarea>
+                            value={text} onChange={e => onChange("text", e.target.value)} data-cy="questionText"></textarea>
 
                     </div>
 
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" onClick={onCreate} data-dismiss="modal">Create</button>
+                    <button type="button" className="btn btn-primary" onClick={onCreate} data-dismiss="modal" data-cy="addQuestion">Create</button>
                     <div className="divider" />
                     <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>

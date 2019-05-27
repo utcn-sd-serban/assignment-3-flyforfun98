@@ -17,7 +17,7 @@ const QuestionView = ({ questions, onCreate, onChange, onChangeQuestion, onFilte
                                     <button className="nav-link" onClick={showQuestions}>Show Questions <span className="sr-only">(current)</span></button>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="nav-link" data-toggle="modal" data-target="#createQuestionModal">Add Question</button>
+                                    <button className="nav-link" data-toggle="modal" data-target="#createQuestionModal" data-cy="openQuestion">Add Question</button>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <button className="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,13 +36,13 @@ const QuestionView = ({ questions, onCreate, onChange, onChangeQuestion, onFilte
                             </ul>
                             <form className="form-inline my-2 my-lg-0">
                                 <input className="form-control mr-sm-2" placeholder="Search by tag.."
-                                    onChange={e => onChangeQuestion("searchFieldTag", e.target.value)} value={searchFieldTag} />
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={onFilterByTags} >Go!</button>
+                                    onChange={e => onChangeQuestion("searchFieldTag", e.target.value)} value={searchFieldTag} data-cy="searchTitle"/>
+                                <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={onFilterByTags} data-cy="goTitle">Go!</button>
                             </form>
                             <form className="form-inline my-2 my-lg-0">
                                 <input className="form-control mr-sm-2" placeholder="Search by title.."
-                                    onChange={e => onChangeQuestion("searchFieldTitle", e.target.value)} value={searchFieldTitle} />
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={onFilterByTitle} >Go!</button>
+                                    onChange={e => onChangeQuestion("searchFieldTitle", e.target.value)} value={searchFieldTitle} data-cy="searchTags"/>
+                                <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={onFilterByTitle} data-cy="goTags">Go!</button>
                             </form>
                         </div>
                     </nav>
@@ -53,7 +53,7 @@ const QuestionView = ({ questions, onCreate, onChange, onChangeQuestion, onFilte
                             {
 
                                 questions.map((question, index) => (
-                                    <tr className="table-primary" key={index}>
+                                    <tr className="table-primary" key={index} data-cy="questions">
 
                                         <td><button className="score disabled">Votes<br />{question.votes}</button></td>
                                         <td><button className="nav-link">{question.title}</button> <br />

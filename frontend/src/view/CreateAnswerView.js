@@ -17,12 +17,12 @@ const CreateAnswerView = ({ text, onCreate, onChange }) => (
                     <div className="form-group green-border-focus">
                         <label form="exampleFormControlTextarea5">Text</label>
                         <textarea className="form-control" id="exampleFormControlTextarea5" rows="7"
-                            value={text} onChange={e => onChange("text", e.target.value)}></textarea>
+                            value={text} onChange={e => onChange("text", e.target.value)} data-cy="answerText"></textarea>
                     </div>
 
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" onClick={onCreate} data-dismiss="modal">Create</button>
+                    <button type="button" className="btn btn-primary" onClick={onCreate} data-dismiss="modal" data-cy="addAnswer">Create</button>
                     <div className="divider" />
                     <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>

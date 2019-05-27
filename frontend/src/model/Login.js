@@ -5,7 +5,6 @@ import answer from "./Answer";
 
 let client = new RestClient();
 let listener = new WebSocketListener();
-listener.client.deactivate();
 
 export function getClient() {
 
@@ -85,8 +84,9 @@ class Login extends EventEmitter {
     logUser(username, password) {
 
         client = new RestClient(username, password);
-       
+        listener.client.deactivate();
         listener = new WebSocketListener(username, password);
+        console.log(listener.client.brokerURL);
         this.onEvent(listener);
         return client.getLoginClient().loginUser(username, password).then(user => {
             this.state = {

@@ -17,12 +17,12 @@ const EditAnswerView = ({ onEdit, onChange, answerToBeEdited, text }) => (
                     <div className="form-group green-border-focus">
                         <label form="exampleFormControlTextarea5">Text</label>
                         <textarea className="form-control" id="exampleFormControlTextarea5" rows="7"
-                            value={text} onChange={e => onChange("text", e.target.value)}></textarea>
+                            value={text} onChange={e => onChange("text", e.target.value)} data-cy="editAnswerText"></textarea>
                     </div>
 
                 </div>
                 <div className="modal-footer" id="answerButtonsModal">
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => onEdit(answerToBeEdited)}>Save</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => onEdit(answerToBeEdited)} data-cy="onEditAnswer">Save</button>
                     <div className="divider" />
                     <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => onChange("text", "")}>Close</button>
                 </div>

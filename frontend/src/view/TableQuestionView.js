@@ -7,9 +7,9 @@ const TableQuestionView = ({ questionsCopy, onQuestionClick }) => (
         <tbody>
             {
                 questionsCopy.map((question, index) => (
-                    <tr className="table-primary" key={index}>
+                    <tr className="table-primary" key={index} data-cy="questions">
                         <td><button className="score disabled">Votes<br />{question.votes}</button></td>
-                        <td><button onClick={() => { onQuestionClick(index, question) }} className="nav-link">{question.title}</button> <br />
+                        <td><button onClick={() => { onQuestionClick(index, question) }} className="nav-link" data-cy="clickQuestion">{question.title}</button> <br />
                             <button className="badge badge-pill badge-primary dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Tags</button>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">

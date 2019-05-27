@@ -14,17 +14,17 @@ const LoginView = ({ username, password, onCreate, onChange, onLogging, isUserBa
                     <div>
                         <label className="label">Username: </label>
 
-                        <input className="input" placeholder="Your username.." value={username}
+                        <input className="input" placeholder="Your username.." value={username} data-cy="username"
                             onChange={e => onChange("username", e.target.value)} />
                         <br />
                         <br />
                         <label className="label">Password: </label>
 
-                        <input className="input" type="password" placeholder="Your password.." value={password}
+                        <input className="input" type="password" placeholder="Your password.." value={password} data-cy="password"
                             onChange={e => onChange("password", e.target.value)} />
                         <br />
 
-                        <button type="button" className="btn btn-primary btn-lg" data-dismiss='#loginModal' data-toggle="modal" data-target="#loginModal" onClick={onLogging}>Login</button>
+                        <button type="button" className="btn btn-primary btn-lg" onClick={onLogging} data-cy="loginUser">Login</button>
                         <button type="button" className="btn btn-primary btn-lg" onClick={onCreate}>Register</button>
 
                     </div>

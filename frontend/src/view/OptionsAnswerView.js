@@ -11,7 +11,7 @@ const OptionsAnswerView = ({ goBack }) => (
                     <button className="nav-link" onClick={goBack}>Go Back</button>
                 </li>
                 <li className="nav-item answer-item">
-                    <button className="nav-link" data-toggle="modal" data-target="#createAnswerModal">Add Answer</button>
+                    <button className="nav-link" data-toggle="modal" data-target="#createAnswerModal" data-cy="createAnswer">Add Answer</button>
                 </li>
 
 

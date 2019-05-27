@@ -15,7 +15,7 @@ const TableAnswerView = ({ answersCopy, currentUser, currentQuestion, onDelete, 
         <tbody>
             {
                 answersCopy.map((answer, index) => (
-                    <tr className="table-primary" key={index}>
+                    <tr className="table-primary" key={index} data-cy="answers">
                         <td>
                             <div>
                                 <button className="score disabled">Votes<br />{answer.votes}</button>
@@ -23,11 +23,11 @@ const TableAnswerView = ({ answersCopy, currentUser, currentQuestion, onDelete, 
                                 {answer.date}
                                 <br />
                                 {currentUser.username !== answer.username &&
-                                    <button className="icon-button" onClick={() => handleVoteAnswer(currentUser, answer, currentQuestion, "UP")}> <Icon className="icon" icon={chevronUp} /></button>
+                                    <button className="icon-button" onClick={() => handleVoteAnswer(currentUser, answer, currentQuestion, "UP")} data-cy="voteAnswerUp"> <Icon className="icon" icon={chevronUp} /></button>
                                 }
                                 <br />
                                 {currentUser.username !== answer.username &&
-                                    <button className="icon-button" onClick={() => handleVoteAnswer(currentUser, answer, currentQuestion, "DOWN")}> <Icon className="icon" icon={chevronDown} /></button>
+                                    <button className="icon-button" onClick={() => handleVoteAnswer(currentUser, answer, currentQuestion, "DOWN")} data-cy="voteAnswerDown"> <Icon className="icon" icon={chevronDown} /></button>
                                 }
                             </div>
                         </td>
@@ -53,7 +53,7 @@ const TableAnswerView = ({ answersCopy, currentUser, currentQuestion, onDelete, 
 
                             {(currentUser.permission === "ADMIN" || currentUser.username === answer.username) &&
                                 <button className="icon-button" type="button" data-toggle="modal" data-target="#editAnswerModal"
-                                    onClick={() => setAnswerModal(answer)} >
+                                    onClick={() => setAnswerModal(answer)} data-cy="editAnswer">
 
                                     <Icon className="icon-edit-delete" icon={pencil} />
                                     <br /></button>
@@ -61,7 +61,7 @@ const TableAnswerView = ({ answersCopy, currentUser, currentQuestion, onDelete, 
                             <br />
                             <br />
                             {(currentUser.permission === "ADMIN" || currentUser.username === answer.username) &&
-                                <button className="icon-button" type="button" onClick={() => onDelete(answer)}> <Icon className="icon-edit-delete" icon={trashcan} /></button>
+                                <button className="icon-button" type="button" onClick={() => onDelete(answer)} data-cy="deleteAnswer"> <Icon className="icon-edit-delete" icon={trashcan} /></button>
                             }
 
                         </td>

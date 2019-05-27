@@ -15,10 +15,10 @@ const QuestionContentView = ({ currentQuestion, currentUser, handleVoteQuestion,
                 <button className="score disabled">Votes<br />{currentQuestion.votes}</button>
                 <br />
                 {currentUser.username !== currentQuestion.username &&
-                    <button className="icon-button" onClick={() => handleVoteQuestion(currentQuestion, currentUser, "UP")}> <Icon className="icon" icon={chevronUp} /></button>}
+                    <button className="icon-button" onClick={() => handleVoteQuestion(currentQuestion, currentUser, "UP")}> <Icon className="icon" icon={chevronUp} data-cy="voteQuestionUp"/></button>}
                 <br />
                 {currentUser.username !== currentQuestion.username &&
-                    <button className="icon-button" onClick={() => handleVoteQuestion(currentQuestion, currentUser, "DOWN")}> <Icon className="icon" icon={chevronDown} /></button>}
+                    <button className="icon-button" onClick={() => handleVoteQuestion(currentQuestion, currentUser, "DOWN")} data-cy="voteQuestionDown"> <Icon className="icon" icon={chevronDown} /></button>}
             </div>
         </div>
         <div className="card question-content fixed">
@@ -45,11 +45,11 @@ const QuestionContentView = ({ currentQuestion, currentUser, handleVoteQuestion,
             <div className="score-divider" />
             {currentUser.permission === "ADMIN" &&
                 <button className="icon-button" type="button" data-toggle="modal" data-target="#editQuestionModal"
-                    onClick={() => setQuestionModal(currentQuestion)}> <Icon className="icon-edit-delete" icon={pencil} /></button>}
+                    onClick={() => setQuestionModal(currentQuestion)} data-cy="editQuestion"> <Icon className="icon-edit-delete" icon={pencil} /></button>}
             <br />
             <br />
             {currentUser.permission === "ADMIN" &&
-                <button className="icon-button" onClick={() => onDeleteQuestion(currentQuestion)}> <Icon className="icon-edit-delete" icon={trashcan} /></button>}
+                <button className="icon-button" onClick={() => onDeleteQuestion(currentQuestion)} data-cy="deleteQuestion"> <Icon className="icon-edit-delete" icon={trashcan} /></button>}
         </div>
     </div>
 );
